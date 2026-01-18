@@ -4,6 +4,7 @@
       v-if="movieData"
       class="movie-card"
       color="surface-variant"
+      data-testid="movie-card"
       rounded="lg"
     >
 
@@ -12,7 +13,13 @@
       </v-lazy>
 
       <div class="movie-card__info">
-        <v-card-title class="movie-card__title" :href="imdbLink" tag="a" target="_blank">
+        <v-card-title
+          class="movie-card__title"
+          data-testid="movie-link"
+          :href="imdbLink"
+          tag="a"
+          target="_blank"
+        >
           {{ movieData.Title }}
         </v-card-title>
 

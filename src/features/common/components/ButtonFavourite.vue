@@ -1,5 +1,11 @@
 <template>
-  <v-btn :icon="isFavorite ? 'mdi-heart' : 'mdi-heart-outline'" @click="onToggle" />
+  <v-btn
+    :aria-label="isFavorite ? 'Unfavorite' : 'Favorite'"
+    :aria-pressed="isFavorite"
+    data-testid="button-favorite"
+    :icon="isFavorite ? 'mdi-heart' : 'mdi-heart-outline'"
+    @click="onToggle"
+  />
 </template>
 
 <script setup lang="ts">
