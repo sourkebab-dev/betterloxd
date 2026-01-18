@@ -1,16 +1,24 @@
-import type { MovieData, MovieSearchReq } from '@/features/common/types'
+import type { MovieData, MovieListResp, MovieSearchReq } from '@/features/common/types'
 
 import { defineStore } from 'pinia'
-import { reactive, readonly, ref } from 'vue'
+import { computed, reactive, readonly, ref } from 'vue'
 import { searchMovie } from '@/features/common/services/movie-service'
 
 export default defineStore('movie-search', () => {
-  const movieList = ref<Array<MovieData>>([])
+  const searchResult = ref<MovieListResp | undefined>(undefined)
   const isSearching = ref(false)
   const searchData = reactive<MovieSearchReq>({
     page: 1,
     Title: '',
   })
+
+  const movieList = computed<Array<MovieData>>(() => {
+    return searchResult.value?.data || []
+  })
+
+  const totalPage = computed(() => searchResult.value?.total_pages || 0)
+
+  const isEmpty = computed(() => !isSearching.value && searchResult.value?.total === 0)
 
   function setCurrentPage (newPage: number) {
     searchData.page = newPage
@@ -26,7 +34,7 @@ export default defineStore('movie-search', () => {
 
     try {
       const resp = await searchMovie({ Title: title, page })
-      movieList.value = resp.data
+      searchResult.value = resp
     } catch (error) {
       console.error(error)
     }
@@ -35,15 +43,16 @@ export default defineStore('movie-search', () => {
   }
 
   function clearSearch () {
-    searchData.Title = ''
-    searchData.page = 1
-    movieList.value = []
+    searchResult.value = undefined
+    onMovieSearch('', 1)
   }
 
   return {
     isSearching: readonly(isSearching),
-    movieList: readonly(movieList),
     searchData: readonly(searchData),
+    totalPage,
+    movieList,
+    isEmpty,
     setCurrentPage,
     onMovieSearch,
     clearSearch,
