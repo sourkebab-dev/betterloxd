@@ -17,10 +17,10 @@
           {{ movieData.Year }}
         </v-card-subtitle>
       </div>
-      <v-btn
+      <button-favourite
         class="movie-card__btn"
-        :icon="isFavorite ? 'mdi-heart' : 'mdi-heart-outline'"
-        @click.stop=""
+        :is-favorite="isFavourite"
+        @click.stop="toggleFavourite"
       />
     </v-card>
   </v-skeleton-loader>
@@ -30,7 +30,9 @@
 <script setup lang="ts">
   import type { MovieData } from '@/features/common/types'
   import { computed } from 'vue'
-  import { VBtn, VCard, VCardSubtitle, VCardTitle, VSkeletonLoader } from 'vuetify/components'
+  import { VCard, VCardSubtitle, VCardTitle, VSkeletonLoader } from 'vuetify/components'
+  import ButtonFavourite from '@/common/components/ButtonFavourite.vue'
+  import useCachedUserData from '@/features/common/store/useCachedUserData'
 
   const props = withDefaults(defineProps<{
     movieData?: MovieData
@@ -41,9 +43,24 @@
     isLoading: false,
   })
 
+  const { toggle, isFavorite: getFavourite } = useCachedUserData()
+
+  const isFavourite = computed(() => {
+    if (!props.movieData) return false
+    return getFavourite(props.movieData?.imdbID)
+  })
+
   const imdbLink = computed(() => {
+    if (!props.movieData) return ''
+
     return `https://www.imdb.com/title/${props.movieData.imdbID}`
   })
+
+  function toggleFavourite () {
+    if (!props.movieData) return
+
+    toggle(props.movieData)
+  }
 
 </script>
 
