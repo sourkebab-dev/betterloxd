@@ -3,27 +3,28 @@
     <div class="search-result__list">
       <v-empty-state
         v-if="isError"
+        data-testid="error-search"
         icon="mdi-alert-circle"
         text="We couldn't load the data right now. Please try again in a moment."
         title="Something went wrong."
       >
-        <v-btn @click="movieStore.retrySearch">Retry</v-btn>
+        <v-btn data-testid="button-retry" @click="movieStore.retrySearch">Retry</v-btn>
       </v-empty-state>
       <v-empty-state
         v-else-if="isEmpty"
+        data-testid="empty-search"
         icon="mdi-magnify"
         text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
         title="We couldn't find a match."
       />
       <template v-else-if="isSearching">
-        <movie-card v-for="i in 5" :key="`movie-card-loading-${i}`" :data-testid="`movie-card-loading-${i}`" is-loading />
+        <movie-card v-for="i in 5" :key="`movie-card-loading-${i}`" data-testid="movie-card-loading" is-loading />
       </template>
       <template v-else>
         <movie-card
-          v-for="(movie, index) in movieList"
+          v-for="(movie) in movieList"
           :key="`movie-card-${movie.imdbID}`"
           class="search-result__card"
-          :data-testid="`movie-card-${index}`"
           :movie-data="movie"
         />
       </template>
@@ -31,6 +32,7 @@
     <v-pagination
       v-if="!isSearching && !isEmpty && !isError"
       class="search-result__pagination"
+      data-testid="pagination"
       :length="totalPage"
       :model-value="searchData.page"
       @update:model-value="onChangePage"

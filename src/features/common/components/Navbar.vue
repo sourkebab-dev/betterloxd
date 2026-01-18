@@ -9,8 +9,8 @@
         color="primary"
         density="compact"
       >
-        <v-tab exact to="/">Search</v-tab>
-        <v-tab to="/favorites">Favorites</v-tab>
+        <v-tab data-testid="menu-search" exact to="/">Search</v-tab>
+        <v-tab data-testid="menu-favorite" to="/favorites">Favorites</v-tab>
       </v-tabs>
     </div>
   </v-app-bar>
