@@ -3,6 +3,7 @@
     <div class="search-panel__field">
       <v-combobox
         id="search-field"
+        v-model:menu="isMenuOpened"
         v-model:search="searchKey"
         clearable
         data-testid="search-field"
@@ -23,7 +24,7 @@
 
 <script lang="ts" setup>
   import { storeToRefs } from 'pinia'
-  import { watch } from 'vue'
+  import { ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import { VCombobox } from 'vuetify/components'
   import useMoviesAutocomplete from '../composables/useMoviesAutocomplete'
@@ -35,8 +36,11 @@
   const moviesStore = useMovieSearch()
   const { isSearching } = storeToRefs(moviesStore)
 
+  const isMenuOpened = ref(false)
+
   function onSubmit () {
     moviesStore.onMovieSearch(searchKey.value, 1)
+    isMenuOpened.value = false
   }
 
   watch(searchKey, () => {
