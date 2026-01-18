@@ -1,7 +1,13 @@
 <template>
   <div class="page-search">
     <div class="backdrop" :style="{backgroundImage: `url(${image})`}">
-      <h2 class="backdrop__text">Track films you’ve&nbsp;watched.<br>Save those you want to&nbsp;see.<br>Tell your friends what’s&nbsp;good.</h2>
+      <h2 class="backdrop__text">
+        Track films you've watched.
+        <br>
+        Save those you want to see.
+        <br>
+        Tell your friends what'sgood.
+      </h2>
     </div>
     <search-panel />
     <search-result />
@@ -9,10 +15,11 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
+  import { computed, onMounted } from 'vue'
   import SearchPanel from './components/SearchPanel.vue'
   import SearchResult from './components/SearchResult.vue'
   import { HERO_IMAGES } from './config'
+  import useMovieSearch from './store/useMovieSearch'
 
   const image = computed<string>(() => {
     const idx = Math.floor(Math.random() * HERO_IMAGES.length)
@@ -20,6 +27,12 @@
     return HERO_IMAGES[idx] || ''
   })
 
+  const movieStore = useMovieSearch()
+
+  onMounted(() => {
+    const { Title, page } = movieStore.searchData
+    movieStore.onMovieSearch(Title, page)
+  })
 </script>
 
 <style lang="scss" scoped>

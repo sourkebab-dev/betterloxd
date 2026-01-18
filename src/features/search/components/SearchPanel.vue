@@ -13,6 +13,7 @@
         :items="autoCompleteResult"
         label="Find a film"
         :loading="isLoading"
+        :model-value="searchKey"
         @keydown.enter="onSubmit"
       />
     </div>
@@ -21,11 +22,14 @@
 
 <script lang="ts" setup>
   import { watch } from 'vue'
+  import { useRoute } from 'vue-router'
   import { VCombobox } from 'vuetify/components'
   import useMoviesAutocomplete from '../composables/useMoviesAutocomplete'
   import useMovieSearch from '../store/useMovieSearch'
 
-  const { searchKey, autoCompleteResult, isLoading } = useMoviesAutocomplete()
+  const route = useRoute()
+
+  const { searchKey, autoCompleteResult, isLoading } = useMoviesAutocomplete(`${route.query.title}`)
   const { onMovieSearch, clearSearch } = useMovieSearch()
 
   function onSubmit () {
@@ -40,14 +44,12 @@
 </script>
 
 <style lang="scss" scoped>
-    .search-panel {
-
-        &__field {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 0 0 33%;
-        }
+  .search-panel {
+    &__field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 33%;
     }
-
+  }
 </style>

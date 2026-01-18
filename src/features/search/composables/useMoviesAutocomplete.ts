@@ -3,8 +3,8 @@ import { ref, watch } from 'vue'
 import { debounce } from '@/common/utils/misc'
 import { searchMovie } from '@/features/common/services/movie-service'
 
-export default function useMoviesAutocomplete () {
-  const searchKey = ref('')
+export default function useMoviesAutocomplete (defaultSearch: string) {
+  const searchKey = ref(defaultSearch)
   const autoCompleteResult = ref<Array<MovieData>>([])
   const isLoading = ref(false)
 

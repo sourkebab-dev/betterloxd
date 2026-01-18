@@ -33,17 +33,12 @@
 
 <script setup lang="ts">
   import { storeToRefs } from 'pinia'
-  import { onMounted } from 'vue'
   import { VEmptyState, VPagination } from 'vuetify/components'
   import useMovieSearch from '../store/useMovieSearch'
   import MovieCard from './MovieCard.vue'
 
   const movieStore = useMovieSearch()
   const { movieList, isSearching, isEmpty, totalPage, searchData } = storeToRefs(movieStore)
-
-  onMounted(() => {
-    movieStore.onMovieSearch('', 1)
-  })
 </script>
 
 <style lang="scss" scoped>

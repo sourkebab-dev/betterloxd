@@ -2,15 +2,24 @@ import type { MovieData, MovieListResp, MovieSearchReq } from '@/features/common
 
 import { defineStore } from 'pinia'
 import { computed, reactive, readonly, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { searchMovie } from '@/features/common/services/movie-service'
 
 export default defineStore('movie-search', () => {
+  const router = useRouter()
+  const route = useRoute()
+
   const searchResult = ref<MovieListResp | undefined>(undefined)
   const isSearching = ref(false)
-  const searchData = reactive<MovieSearchReq>({
-    page: 1,
-    Title: '',
-  })
+
+  function getDefaultSearch (): MovieSearchReq {
+    return {
+      Title: `${route.query.title}`,
+      page: Number(route.query.page) || 1,
+    }
+  }
+
+  const searchData = reactive<MovieSearchReq>(getDefaultSearch())
 
   const movieList = computed<Array<MovieData>>(() => {
     return searchResult.value?.data || []
@@ -26,6 +35,10 @@ export default defineStore('movie-search', () => {
     onMovieSearch(searchData.Title, newPage)
   }
 
+  function syncSearchToRoute () {
+    router.push({ path: '/search', query: { title: searchData.Title, page: searchData.page } })
+  }
+
   async function onMovieSearch (title: string, page: number) {
     isSearching.value = true
 
@@ -35,6 +48,7 @@ export default defineStore('movie-search', () => {
     try {
       const resp = await searchMovie({ Title: title, page })
       searchResult.value = resp
+      syncSearchToRoute()
     } catch (error) {
       console.error(error)
     }
