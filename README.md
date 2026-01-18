@@ -12,3 +12,5 @@
 # Test
 
 `pnpm run test`
+
+preview: https://betterloxd-6a912.web.app/
