@@ -6,7 +6,10 @@
       color="surface-variant"
       rounded="lg"
     >
-      <img class="movie-card__poster" :src="`https://picsum.photos/200/300?random=${movieData.imdbID}`">
+
+      <v-lazy>
+        <img class="movie-card__poster" :src="`https://picsum.photos/200/300?random=${movieData.imdbID}`">
+      </v-lazy>
 
       <div class="movie-card__info">
         <v-card-title class="movie-card__title" :href="imdbLink" tag="a" target="_blank">
@@ -30,8 +33,8 @@
 <script setup lang="ts">
   import type { MovieData } from '@/features/common/types'
   import { computed } from 'vue'
-  import { VCard, VCardSubtitle, VCardTitle, VSkeletonLoader } from 'vuetify/components'
-  import ButtonFavourite from '@/common/components/ButtonFavourite.vue'
+  import { VCard, VCardSubtitle, VCardTitle, VLazy, VSkeletonLoader } from 'vuetify/components'
+  import ButtonFavourite from '@/features/common/components/ButtonFavourite.vue'
   import useCachedUserData from '@/features/common/store/useCachedUserData'
 
   const props = withDefaults(defineProps<{

@@ -1,4 +1,4 @@
-import type { MovieListResp, MovieSearchReq } from '../types'
+import type { MovieListResp, MovieSearchReq } from '@/features/common/types'
 import { createService } from '@/common/utils/service'
 
 const ENDPOINTS = {
@@ -6,8 +6,6 @@ const ENDPOINTS = {
 }
 
 const moviesService = createService()
-
-export function getMovieList () {}
 
 export function searchMovie (params: MovieSearchReq): Promise<MovieListResp> {
   return moviesService.get<MovieSearchReq, MovieListResp>(ENDPOINTS.search, { params })
