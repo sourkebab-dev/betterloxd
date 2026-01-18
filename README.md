@@ -8,3 +8,7 @@
 # Build
 
 `pnpm run build`
+
+# Test
+
+`pnpm run test`
