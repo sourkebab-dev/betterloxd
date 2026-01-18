@@ -19,6 +19,7 @@
 <style lang="scss" scoped>
 .layout-content {
   width: 950px;
+  padding-block: 24px;
   margin: auto;
 }
 </style>

@@ -21,6 +21,9 @@ export default defineStore('movie-search', () => {
   async function onMovieSearch (title: string, page: number) {
     isSearching.value = true
 
+    searchData.Title = title
+    searchData.page = page
+
     try {
       const resp = await searchMovie({ Title: title, page })
       movieList.value = resp.data
@@ -31,11 +34,18 @@ export default defineStore('movie-search', () => {
     isSearching.value = false
   }
 
+  function clearSearch () {
+    searchData.Title = ''
+    searchData.page = 1
+    movieList.value = []
+  }
+
   return {
     isSearching: readonly(isSearching),
     movieList: readonly(movieList),
     searchData: readonly(searchData),
     setCurrentPage,
     onMovieSearch,
+    clearSearch,
   }
 })

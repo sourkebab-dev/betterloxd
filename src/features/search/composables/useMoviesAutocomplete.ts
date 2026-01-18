@@ -14,8 +14,6 @@ export default function useMoviesAutocomplete () {
     try {
       const resp = await searchMovie({ Title: searchKey.value, page: 1 })
       autoCompleteResult.value = resp.data
-
-      console.log(resp)
     } catch (error) {
       console.error(error)
     }
