@@ -7,6 +7,7 @@
         clearable
         data-testid="search-field"
         density="compact"
+        :disabled="isSearching"
         hide-details
         item-title="Title"
         item-value="imdbID"
@@ -21,6 +22,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { storeToRefs } from 'pinia'
   import { watch } from 'vue'
   import { useRoute } from 'vue-router'
   import { VCombobox } from 'vuetify/components'
@@ -30,15 +32,16 @@
   const route = useRoute()
 
   const { searchKey, autoCompleteResult, isLoading } = useMoviesAutocomplete(`${route.query.title}`)
-  const { onMovieSearch, clearSearch } = useMovieSearch()
+  const moviesStore = useMovieSearch()
+  const { isSearching } = storeToRefs(moviesStore)
 
   function onSubmit () {
-    onMovieSearch(searchKey.value, 1)
+    moviesStore.onMovieSearch(searchKey.value, 1)
   }
 
   watch(searchKey, () => {
     if (!searchKey.value) {
-      clearSearch()
+      moviesStore.clearSearch()
     }
   })
 </script>

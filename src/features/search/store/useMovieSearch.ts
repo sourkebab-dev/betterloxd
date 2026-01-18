@@ -11,6 +11,7 @@ export default defineStore('movie-search', () => {
 
   const searchResult = ref<MovieListResp | undefined>(undefined)
   const isSearching = ref(false)
+  const isError = ref(false)
 
   function getDefaultSearch (): MovieSearchReq {
     return {
@@ -40,8 +41,12 @@ export default defineStore('movie-search', () => {
   }
 
   async function onMovieSearch (title: string, page: number) {
-    isSearching.value = true
+    if (isSearching.value) {
+      return
+    }
 
+    isSearching.value = true
+    isError.value = false
     searchData.Title = title
     searchData.page = page
 
@@ -50,6 +55,7 @@ export default defineStore('movie-search', () => {
       searchResult.value = resp
       syncSearchToRoute()
     } catch (error) {
+      isError.value = true
       console.error(error)
     }
 
@@ -61,12 +67,18 @@ export default defineStore('movie-search', () => {
     onMovieSearch('', 1)
   }
 
+  function retrySearch () {
+    onMovieSearch(searchData.Title, searchData.page)
+  }
+
   return {
     isSearching: readonly(isSearching),
     searchData: readonly(searchData),
     totalPage,
     movieList,
     isEmpty,
+    isError,
+    retrySearch,
     setCurrentPage,
     onMovieSearch,
     clearSearch,

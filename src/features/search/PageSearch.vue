@@ -6,7 +6,7 @@
         <br>
         Save those you want to see.
         <br>
-        Tell your friends what'sgood.
+        Tell your friends what's good.
       </h2>
     </div>
     <search-panel />
