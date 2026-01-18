@@ -10,5 +10,9 @@ export function createService (config?: CreateAxiosDefaults<any> | undefined): A
     ...config,
   })
 
+  http.interceptors.response.use(resp => {
+    return resp.data
+  })
+
   return http
 }

@@ -1,10 +1,11 @@
 <template>
   <div>
-    search
+    <search-panel />
   </div>
 </template>
 
 <script setup lang="ts">
+  import SearchPanel from './components/SearchPanel.vue'
 
 </script>
 
