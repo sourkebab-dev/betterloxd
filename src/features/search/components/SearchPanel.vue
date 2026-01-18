@@ -32,7 +32,9 @@
 
   const route = useRoute()
 
-  const { searchKey, autoCompleteResult, isLoading } = useMoviesAutocomplete(`${route.query.title}`)
+  const defaultTitle = route.query.title ? `${route.query.title}` : ''
+
+  const { searchKey, autoCompleteResult, isLoading } = useMoviesAutocomplete(defaultTitle)
   const moviesStore = useMovieSearch()
   const { isSearching } = storeToRefs(moviesStore)
 

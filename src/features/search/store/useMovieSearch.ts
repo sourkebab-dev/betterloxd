@@ -1,9 +1,9 @@
 import type { MovieData, MovieListResp, MovieSearchReq } from '@/features/common/types'
-
 import { defineStore } from 'pinia'
+
 import { computed, reactive, readonly, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { searchMovie } from '@/features/common/services/movie-service'
+import { searchMovie } from '@/services/movie-service'
 
 export default defineStore('movie-search', () => {
   const router = useRouter()
@@ -14,8 +14,10 @@ export default defineStore('movie-search', () => {
   const isError = ref(false)
 
   function getDefaultSearch (): MovieSearchReq {
+    const title = route.query.title ? `${route.query.title}` : ''
+
     return {
-      Title: `${route.query.title}`,
+      Title: title,
       page: Number(route.query.page) || 1,
     }
   }
