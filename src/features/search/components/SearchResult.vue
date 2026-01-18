@@ -33,7 +33,7 @@
       class="search-result__pagination"
       :length="totalPage"
       :model-value="searchData.page"
-      @update:model-value="movieStore.setCurrentPage($event)"
+      @update:model-value="onChangePage"
     />
   </div>
 </template>
@@ -46,6 +46,11 @@
 
   const movieStore = useMovieSearch()
   const { movieList, isSearching, isEmpty, totalPage, searchData, isError } = storeToRefs(movieStore)
+
+  function onChangePage (page: number) {
+    window.scrollTo({ top: 0 })
+    movieStore.setCurrentPage(page)
+  }
 </script>
 
 <style lang="scss" scoped>
