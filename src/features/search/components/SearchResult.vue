@@ -1,13 +1,19 @@
 <template>
   <div class="search-result">
     <div class="search-result__list">
-      <movie-card
-        v-for="(movie, index) in movieStore.movieList"
-        :key="`movie-card-${movie.imdbID}`"
-        class="search-result__card"
-        :data-testid="`movie-card-${index}`"
-        :movie-data="movie"
-      />
+      <template v-if="movieStore.isSearching">
+        <movie-card v-for="i in 5" :key="`movie-card-loading-${i}`" :data-testid="`movie-card-loading-${i}`" is-loading />
+      </template>
+      <template v-else>
+        <movie-card
+          v-for="(movie, index) in movieStore.movieList"
+          :key="`movie-card-${movie.imdbID}`"
+          class="search-result__card"
+          :data-testid="`movie-card-${index}`"
+          :movie-data="movie"
+        />
+      </template>
+
     </div>
 
     <v-pagination />
