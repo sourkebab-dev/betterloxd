@@ -34,7 +34,7 @@
   import type { MovieData } from '@/features/common/types'
   import { computed } from 'vue'
   import { VCard, VCardSubtitle, VCardTitle, VLazy, VSkeletonLoader } from 'vuetify/components'
-  import ButtonFavourite from '@/common/components/ButtonFavourite.vue'
+  import ButtonFavourite from '@/features/common/components/ButtonFavourite.vue'
   import useCachedUserData from '@/features/common/store/useCachedUserData'
 
   const props = withDefaults(defineProps<{

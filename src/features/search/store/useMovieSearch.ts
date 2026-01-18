@@ -39,7 +39,7 @@ export default defineStore('movie-search', () => {
   }
 
   function syncSearchToRoute () {
-    router.push({ path: '/search', query: { title: searchData.Title, page: searchData.page } })
+    router.push({ path: '/', query: { title: searchData.Title, page: searchData.page } })
   }
 
   async function onMovieSearch (title: string, page: number) {

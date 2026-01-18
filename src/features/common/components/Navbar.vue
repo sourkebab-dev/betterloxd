@@ -9,7 +9,7 @@
         color="primary"
         density="compact"
       >
-        <v-tab exact to="/search">Search</v-tab>
+        <v-tab exact to="/">Search</v-tab>
         <v-tab to="/favorites">Favorites</v-tab>
       </v-tabs>
     </div>

@@ -1,8 +1,8 @@
 <template>
-  <Homepage />
+  <page-search />
 </template>
 
 <script lang="ts" setup>
-  import Homepage from '@/features/homepage/components/Homepage.vue'
+  import PageSearch from '@/features/search/PageSearch.vue'
 
 </script>
