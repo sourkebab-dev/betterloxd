@@ -1,9 +1,9 @@
 <template>
-  <div>asd</div>
+  <page-search />
 </template>
 
-<script lang="ts">
-
+<script setup lang="ts">
+  import PageSearch from '@/features/search/PageSearch.vue'
 </script>
 
 <style lang="scss" scoped>
