@@ -17,6 +17,7 @@
           class="movie-card__title"
           data-testid="movie-link"
           :href="imdbLink"
+          rel="noopener noreferrer"
           tag="a"
           target="_blank"
         >

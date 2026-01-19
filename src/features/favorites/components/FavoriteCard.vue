@@ -1,6 +1,6 @@
 <template>
   <div class="favorite-card">
-    <a :href="imdbLink" target="_blank">
+    <a :href="imdbLink" rel="noopener noreferrer" target="_blank">
       <v-card class="favorite-card__image">
         <v-img cover :src="`https://picsum.photos/200/300?random=${movieData.imdbID}`" />
         <button-favourite class="favorite-card__btn" :is-favorite="isFavourite" @click.stop.prevent="onRemove" />
