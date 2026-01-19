@@ -35,8 +35,20 @@
 
     &__list {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
+    }
+
+    @media (min-width: 600px) {
+      &__list {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+     @media (min-width: 960px) {
+      &__list {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
     }
   }
 </style>

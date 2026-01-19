@@ -17,6 +17,7 @@
 <style lang="scss" scoped>
 .layout-content {
   width: 1024px;
+  max-width: calc(100% - 32px);
   margin: auto;
 }
 </style>
