@@ -1,6 +1,13 @@
 <template>
   <div class="page-search">
-    <div class="backdrop" :style="{backgroundImage: `url(${image})`}">
+    <div class="backdrop">
+      <img
+        alt="hero"
+        class="backdrop__image"
+        fetchpriority="high"
+        loading="eager"
+        :src="image"
+      >
       <h2 class="backdrop__text">
         Track films you've watched.
         <br>
@@ -16,6 +23,7 @@
 
 <script setup lang="ts">
   import { computed, onMounted } from 'vue'
+  import { VLazy } from 'vuetify/components'
   import SearchPanel from './components/SearchPanel.vue'
   import SearchResult from './components/SearchResult.vue'
   import { HERO_IMAGES } from './config'
@@ -44,10 +52,20 @@
   background-position: center;
   margin-bottom: 128px;
 
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
     background: linear-gradient(
       to top,
@@ -62,6 +80,7 @@
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
     background: linear-gradient(
       to right,
@@ -79,6 +98,7 @@
     bottom: -15%;
     text-align: center;
     width: 100%;
+    z-index: 2;
   }
 }
 </style>
